@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<title>RandomPicker</title>
+	<script type="text/javascript" src="https://unpkg.com/vue@3.1.1/dist/vue.global.js"></script>
+</head>
+<body>
+<h1>RandomPicker</h1>
+<p>イケてるくじ引きツール：入力した候補の中から1つを神が選んでくれるッ…！！</p>
+<p>※入力内容は <code>localStorage</code> つまりお使いのブラウザの中に保存されます。インターネット上に送信されることはありません。</p>
+<hr/>
+<div id="app">
+<input type="text" v-model="candidate" placeholder="くじの候補を入力"/>
+<button v-on:click="add">追加</button>
+<ul>
+	<li v-for="(item, index) in items">
+		<input type="checkbox" v-bind:id="'checkbox-'+index" v-model="item.use" v-on:click="writeLocalStorageAsync">
+		<label v-bind:for="'checkbox-'+index">{{ item.name }}</label>
+		&nbsp;
+		<button v-on:click="deleteItem(index)">×</button>
+	</li>
+</ul>
+<button v-on:click="deleteAll">全消し...</button>
+
+<br/>
+
+<button v-on:click="select">くじを引く</button>
+
+<div id="result" v-if="selected.length>0">
+	選ばれたのは <span>{{ selected }}</span> でした
+</div>
+
+</div>
+<script type="text/javascript">
+const localStorageKey = 'randomPicker-items';
+const appOptions = {
+	data() {
+		return {
+			items: [
+				{name:"たなか", use:true},
+				{name:"すずき", use:true},
+				{name:"やまだ", use:true},
+			],
+			candidate: '',
+			selected: '',
+		};
+	},
+	created() {
+		const localDataStr = window.localStorage.getItem(localStorageKey);
+		const localData = JSON.parse(localDataStr);
+		if(localData) {
+			this.items = localData;
+		}
+	},
+	computed: {
+		usingItems() {
+			return this.items.filter(item => item.use);
+		},
+	},
+	methods: {
+		deleteItem(index) {
+			this.items.splice(index, 1);
+			this.writeLocalStorage();
+		},
+		deleteAll() {
+			if(confirm('それは まことですか？')) {
+				this.items = [];
+				this.writeLocalStorage();
+			}
+		},
+		add() {
+			const candidate = this.candidate;
+			if(candidate.length <= 0) {
+				return;
+			}
+			this.items.push({
+				name: candidate,
+				use: true,
+			});
+			this.candidate = '';
+			this.writeLocalStorage();
+		},
+		writeLocalStorage() {
+			if(this.items.length <= 0) {
+				window.localStorage.removeItem(localStorageKey);
+			}
+			else {
+				const dataStr = JSON.stringify(this.items);
+				//console.log(dataStr);
+				window.localStorage.setItem(localStorageKey, dataStr);
+			}
+		},
+		writeLocalStorageAsync() {
+			setTimeout(() => {
+				this.writeLocalStorage();
+			}, 0);
+		},
+		select() {
+			const len = this.usingItems.length;
+			if(len < 1) {
+				this.selected = '';
+				return;
+			}
+			this.selected = this.usingItems[Math.floor(Math.random()*len)].name;
+		}
+	},
+};
+const app = Vue.createApp(appOptions).mount('#app');
+</script>
+</body>
+</html>
