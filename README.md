@@ -2,6 +2,8 @@
 くじ引きツール、という名のVueJSアプリケーションの習作。
 `localStorage` に依存しているので `file://` なURLでは動作しない。
 
+公開場所（GitHub Pages） : [https://motooka.github.io/RandomPicker/](https://motooka.github.io/RandomPicker/)
+
 ## 主な依存物
 - VueJS 3.1.1
 	- [ドキュメント](https://v3.ja.vuejs.org/guide/introduction.html)
