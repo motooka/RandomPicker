@@ -75,6 +75,10 @@ const appOptions = {
 				setTimeout(() => {
 					this.selected = this.usingItems[Math.floor(Math.random()*len)].name;
 				}, 0);
+				
+				// scroll to bottom
+				// see https://stackoverflow.com/a/11715670/518639
+				window.scrollTo(0, document.body.scrollHeight);
 			}
 		}
 	},
