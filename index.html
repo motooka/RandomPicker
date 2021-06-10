@@ -17,7 +17,7 @@
 </header>
 <hr/>
 <div id="app">
-<input type="text" v-model="candidate" placeholder="くじの候補を入力"/>
+<input type="text" v-model="candidate" v-on:keydown.enter="add" placeholder="くじの候補を入力"/>
 <button v-on:click="add">追加</button>
 <ul>
 	<li v-for="(item, index) in items">

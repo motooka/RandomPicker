@@ -34,7 +34,13 @@ const appOptions = {
 				this.writeLocalStorage();
 			}
 		},
-		add() {
+		add(event) {
+			console.log(event);
+			if(event.isComposing || event.keyCode === 229) {
+				// 日本語等の入力中のenterキーは無視
+				// see https://qiita.com/TsukasaGR/items/22b306cb819bc7164bd7
+				return;
+			}
 			const candidate = this.candidate;
 			if(candidate.length <= 0) {
 				return;
