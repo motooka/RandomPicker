@@ -64,11 +64,12 @@ const appOptions = {
 		},
 		select() {
 			const len = this.usingItems.length;
-			if(len < 1) {
-				this.selected = '';
-				return;
+			this.selected = '';
+			if(len > 0) {
+				setTimeout(() => {
+					this.selected = this.usingItems[Math.floor(Math.random()*len)].name;
+				}, 0);
 			}
-			this.selected = this.usingItems[Math.floor(Math.random()*len)].name;
 		}
 	},
 };

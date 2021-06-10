@@ -8,9 +8,13 @@
 	<link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-<h1>RandomPicker</h1>
-<p>イケてるくじ引きツール：入力した候補の中から1つを神が選んでくれるッ…！！</p>
-<p>※入力内容は <code>localStorage</code> つまりお使いのブラウザの中に保存されます。インターネット上に送信されることはありません。</p>
+<div id="main">
+
+<header>
+	<h1>RandomPicker</h1>
+	<p>イケてるくじ引きツール：入力した候補の中から1つを神が選んでくれるッ…！！</p>
+	<p class="small">※入力内容は <code>localStorage</code> つまりお使いのブラウザの中に保存されます。インターネット上に送信されることはありません。ソースコードは<a href="https://github.com/motooka/RandomPicker" target="_blank" rel="noopener">こちら</a></p>
+</header>
 <hr/>
 <div id="app">
 <input type="text" v-model="candidate" placeholder="くじの候補を入力"/>
@@ -19,21 +23,27 @@
 	<li v-for="(item, index) in items">
 		<input type="checkbox" v-bind:id="'checkbox-'+index" v-model="item.use" v-on:click="writeLocalStorageAsync">
 		<label v-bind:for="'checkbox-'+index">{{ item.name }}</label>
-		&nbsp;
-		<button v-on:click="deleteItem(index)">×</button>
+		<button v-on:click="deleteItem(index)">削除</button>
 	</li>
 </ul>
 <button v-on:click="deleteAll">全消し...</button>
 
-<br/>
+<button v-on:click="select" v-bind:disabled="usingItems.length <= 0" id="executeButton">くじを引く</button>
 
-<button v-on:click="select">くじを引く</button>
-
+<div id="resultWrapper">
 <div id="result" v-if="selected.length>0">
 	選ばれたのは <span>{{ selected }}</span> でした
 </div>
-
 </div>
+
+</div><!-- end of app -->
 <script type="text/javascript" src="app.js"></script>
+
+<hr/>
+<footer>
+Copyright &copy; 2021 <a href="https://www.tmotooka.com/" target="_blank" rel="noopener">T.MOTOOKA</a>. All Rights Reserved.
+</footer>
+
+</div><!-- end of main -->
 </body>
 </html>
