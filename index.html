@@ -26,7 +26,7 @@
 		<button v-on:click="deleteItem(index)">削除</button>
 	</li>
 </ul>
-<button v-on:click="deleteAll">全消し...</button>
+<button v-on:click="deleteAll" v-bind:disabled="items.length <= 0">全消し...</button>
 
 <button v-on:click="select" v-bind:disabled="usingItems.length <= 0" id="executeButton">くじを引く</button>
 
