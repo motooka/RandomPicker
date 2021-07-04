@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copy-static-resources": "cp index.html dist/; cp style.css dist/",
+    "copy-static-resources": "cp index.html docs/; cp style.css docs/",
     "build": "npm run copy-static-resources && npx tsc && webpack --mode production",
     "serve": "npm run copy-static-resources && npx tsc && npx webpack serve --mode production"
   },
