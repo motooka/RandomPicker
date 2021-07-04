@@ -21,3 +21,7 @@ docker run --rm --name random-picker -p 20080:80 -v $(pwd):/usr/share/nginx/html
 docker stop random-picker
 ```
 起動したら http://localhost:20080/ でアクセス！
+
+## ライセンス
+MIT License
+see [LICENSE](./LICENSE) for more details.

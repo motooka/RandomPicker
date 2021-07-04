@@ -1,0 +1,19 @@
+{
+  "name": "random-picker",
+  "version": "1.0.1",
+  "description": "くじびきツール",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motooka/RandomPicker.git"
+  },
+  "author": "motooka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/motooka/RandomPicker/issues"
+  },
+  "homepage": "https://github.com/motooka/RandomPicker#readme"
+}
