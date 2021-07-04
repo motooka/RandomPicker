@@ -10,6 +10,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         port: 20080,
+        inline: false
     },
     resolve: {
         alias: {

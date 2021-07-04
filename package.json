@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "copy-static-resources": "cp index.html dist/; cp style.css dist/",
     "build": "npm run copy-static-resources && npx tsc && webpack --mode production",
-    "serve": "npm run copy-static-resources && npx tsc && npx webpack serve --mode development"
+    "serve": "npm run copy-static-resources && npx tsc && npx webpack serve --mode production"
   },
   "repository": {
     "type": "git",
