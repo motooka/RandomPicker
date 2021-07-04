@@ -4,7 +4,10 @@
   "description": "くじびきツール",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy-static-resources": "cp index.html dist/; cp style.css dist/",
+    "watch": "npm run copy-static-resources && webpack --watch",
+    "build": "npm run copy-static-resources && webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,11 @@
   "bugs": {
     "url": "https://github.com/motooka/RandomPicker/issues"
   },
-  "homepage": "https://github.com/motooka/RandomPicker#readme"
+  "homepage": "https://github.com/motooka/RandomPicker#readme",
+  "devDependencies": {
+    "path": "^0.12.7",
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {}
 }
