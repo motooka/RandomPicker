@@ -1,6 +1,10 @@
+import * as Vue from 'vue';
+import { defineComponent } from 'vue';
+import { Item, AppData } from './model';
+
 const localStorageKey = 'randomPicker-items';
-const appOptions = {
-	data() {
+const appOptions = defineComponent({
+	data(): AppData {
 		return {
 			items: [
 				{name:"たなか", use:true},
@@ -12,19 +16,19 @@ const appOptions = {
 		};
 	},
 	created() {
-		const localDataStr = window.localStorage.getItem(localStorageKey);
+		const localDataStr = localStorage.getItem(localStorageKey) ?? '';
 		const localData = JSON.parse(localDataStr);
 		if(localData) {
 			this.items = localData;
 		}
 	},
 	computed: {
-		usingItems() {
+		usingItems(): Item[] {
 			return this.items.filter(item => item.use);
 		},
 	},
 	methods: {
-		deleteItem(index) {
+		deleteItem(index: number): void {
 			this.items.splice(index, 1);
 			this.writeLocalStorage();
 		},
@@ -34,7 +38,7 @@ const appOptions = {
 				this.writeLocalStorage();
 			}
 		},
-		add(event) {
+		add(event: KeyboardEvent) {
 			console.log(event);
 			if(event.isComposing || event.keyCode === 229) {
 				// 日本語等の入力中のenterキーは無視
@@ -82,5 +86,5 @@ const appOptions = {
 			}
 		}
 	},
-};
-const app = Vue.createApp(appOptions).mount('#app');
+});
+Vue.createApp(appOptions).mount('#app');
