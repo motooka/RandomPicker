@@ -10,5 +10,10 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         port: 20080,
+    },
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm-bundler.js'
+        }
     }
 };

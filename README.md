@@ -6,10 +6,9 @@
 
 ## 主な依存物
 - NodeJS 14.17.2
-- VueJS 3.1.1
+- VueJS 3.1.x
 	- [ドキュメント](https://v3.ja.vuejs.org/guide/introduction.html)
 	- [3.1.1 リリースノート](https://github.com/vuejs/vue-next/blob/master/CHANGELOG.md#311-2021-06-07)
-	- CDN経由でJSファイルの配信を受けている
 - [Webpack](https://webpack.js.org/) : ビルド時にお世話になってる
 - [Webpack DevServer](https://webpack.js.org/configuration/dev-server/) : ローカル開発環境でお世話になってる
 

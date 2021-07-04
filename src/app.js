@@ -1,3 +1,5 @@
+import * as Vue from 'vue';
+
 const localStorageKey = 'randomPicker-items';
 const appOptions = {
 	data() {
