@@ -30,7 +30,6 @@
 		<button v-on:click="deleteItem(index)">削除</button>
 	</li>
 </ul>
-<button v-on:click="deleteAll" v-bind:disabled="items.length <= 0">全消し...</button>
 
 <button v-on:click="select" v-bind:disabled="usingItems.length <= 0" id="executeButton">くじを引く</button>
 
@@ -39,6 +38,9 @@
 	選ばれたのは <span>{{ selected }}</span> でした
 </div>
 </div>
+
+<button v-on:click="saveAs" v-bind:disabled="items.length <= 0">名前を付けて設定を保存...</button>
+<button v-on:click="deleteAll" v-bind:disabled="items.length <= 0">上記の設定を全消し...</button>
 
 </div><!-- end of app -->
 

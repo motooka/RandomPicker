@@ -1,8 +1,10 @@
 import * as Vue from 'vue';
 import { defineComponent } from 'vue';
-import { Item, AppData } from './model';
+import { Item, AppData, NamedAppData } from './model';
 
 const localStorageKey = 'randomPicker-items';
+const localStorageDirtinessKey = 'randomPicker-items-are-dirty';
+const localStorageNamedKey = 'randomPicker-named-items';
 const appOptions = defineComponent({
 	data(): AppData {
 		return {
@@ -13,14 +15,27 @@ const appOptions = defineComponent({
 			],
 			candidate: '',
 			selected: '',
+            isDirty: true,
+            namedAppData: [],
 		};
 	},
 	created() {
 		const localDataStr = localStorage.getItem(localStorageKey) ?? '';
 		const localData = JSON.parse(localDataStr);
 		if(localData) {
+            // TODO: deeper type check at runtime
 			this.items = localData;
 		}
+
+        const isDirtyStr = localStorage.getItem(localStorageDirtinessKey) ?? '1';
+        this.isDirty = (isDirtyStr === '1');
+
+        const namedAppDataStr = localStorage.getItem(localStorageNamedKey) ?? '';
+        const namedAppData = JSON.parse(namedAppDataStr);
+        if(namedAppData && Array.isArray(namedAppData)) {
+            // TODO: deeper type check at runtime
+            this.namedAppData = namedAppData;
+        }
 	},
 	computed: {
 		usingItems(): Item[] {
@@ -30,11 +45,13 @@ const appOptions = defineComponent({
 	methods: {
 		deleteItem(index: number): void {
 			this.items.splice(index, 1);
+            this.isDirty = true;
 			this.writeLocalStorage();
 		},
 		deleteAll() {
 			if(confirm('それは まことですか？')) {
 				this.items = [];
+                this.isDirty = true;
 				this.writeLocalStorage();
 			}
 		},
@@ -54,6 +71,7 @@ const appOptions = defineComponent({
 				use: true,
 			});
 			this.candidate = '';
+            this.isDirty = true;
 			this.writeLocalStorage();
 		},
 		writeLocalStorage() {
@@ -65,6 +83,15 @@ const appOptions = defineComponent({
 				//console.log(dataStr);
 				window.localStorage.setItem(localStorageKey, dataStr);
 			}
+            window.localStorage.setItem(localStorageDirtinessKey, this.isDirty ? '1' : '0');
+            if(this.namedAppData.length <= 0) {
+                window.localStorage.removeItem(localStorageNamedKey);
+            }
+            else {
+                const dataStr = JSON.stringify(this.namedAppData);
+                //console.log(dataStr);
+                window.localStorage.setItem(localStorageNamedKey, dataStr);
+            }
 			this.selected = '';
 		},
 		writeLocalStorageAsync() {
